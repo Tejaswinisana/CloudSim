@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.INFO)
 # Define your filter
 def message_passes_filter(message_text):
     # Check for presence of specific keywords or phrases
-    keywords = ['Oct', 'Nov', 'Dec', 'Available', 'September', 'October', 'Sep', 'November']
+    keywords = ['Oct', 'Nov', 'Dec', 'Available', 'October', 'November']
     pattern = re.compile('|'.join(keywords), re.IGNORECASE)
     return bool(pattern.search(message_text))
 
