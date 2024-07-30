@@ -9,7 +9,7 @@ api_hash = 'b00b2f81b37e64a7eca45f11570ed7ac'
 bot_token = '7245992910:AAFjz_Klm6CWR2X2uORIydulKZ8a8WBqswg'
 phone_number = '+17169079367'
 session_file = 'session_name'
-source_group_ids = [ -4198424207 , -1002243936664, -1001371184682, 6145463489, -1002208686405, -1002237728660]
+source_group_ids = [ -4198424207 , -1002243936664, -1001371184682, 6145463489, -1002208686405, -1002237728660, -1001711701429]
 destination_group_id = -1002208686405
 
 # Configure logging
