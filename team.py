@@ -8,6 +8,7 @@ api_id = '27232480'
 api_hash = 'b00b2f81b37e64a7eca45f11570ed7ac'
 bot_token = '7245992910:AAFjz_Klm6CWR2X2uORIydulKZ8a8WBqswg'
 phone_number = '+17169079367'
+session_file = 'session_name'
 source_group_ids = [ -4198424207 , -1002243936664, -1001371184682, 6145463489, -1002208686405, -1002237728660]
 destination_group_id = -1002208686405
 
@@ -22,10 +23,28 @@ def message_passes_filter(message_text):
     return bool(pattern.search(message_text))
 
 async def main():
-    client = TelegramClient('session_name_main', api_id, api_hash)
+    client = TelegramClient(session_file, api_id, api_hash)
+    auth_code = 85997
     
-    # Connect and sign in
-    await client.start(phone_number)
+    try:
+        # Connect and sign in
+        await client.start(phone_number)
+
+    except EOFError:
+        if auth_code:
+            logging.info("Authentication code required. Using predefined code.")
+            try:
+                await client.sign_in(phone_number, auth_code)
+            except Exception as e:
+                logging.error(f"An error occurred during sign-in with predefined code: {e}")
+                return  # Exit if sign-in fails
+        else:
+            logging.error("Authentication code required but not provided.")
+            return  # Exit if no code is provided
+
+    except Exception as e:
+        logging.error(f"An unexpected error occurred: {e}")
+        return  # Exit if an unexpected error occurs
 
     @client.on(events.NewMessage(chats= source_group_ids))
     async def handler(event):
